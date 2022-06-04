@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import render,redirect,get_list_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -47,7 +47,7 @@ def index(request):
         'users': users,
 
     }
-    return render(request, 'plata/index.html', context)
+    return render(request, 'zetu/index.html', context)
 
 @login_required(login_url='login')
 def profile(request, username):
@@ -68,5 +68,27 @@ def profile(request, username):
         'images': images,
 
     }
-    return render(request, 'plata/profile.html', context)
+    return render(request, 'zetu/profile.html', context)
 
+@login_required(login_url='login')
+def user_profile(request, username):
+    user_prof = get_object_or_404(User, username=username)
+    if request.user == user_prof:
+        return redirect('profile', username=request.user.username)
+    user_posts = user_prof.profile.posts.all()
+    
+    followers = Follow.objects.filter(followed=user_prof.profile)
+    follow_status = None
+    for follower in followers:
+        if request.user.profile == follower.follower:
+            follow_status = True
+        else:
+            follow_status = False
+    context = {
+        'user_prof': user_prof,
+        'user_posts': user_posts,
+        'followers': followers,
+        'follow_status': follow_status
+    }
+    
+    return render(request, 'zetu/user_profile.html', context)
