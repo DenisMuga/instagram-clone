@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,get_list_or_404
+from django.contrib.auth import login, authenticate
+from .forms import RegForm,PostForm,UpdateUserProfileForm,UpdateUserForm,CommentForm
 
 # Create your views here.
 
