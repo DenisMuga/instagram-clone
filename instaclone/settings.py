@@ -15,9 +15,12 @@ import os
 
 from decouple import config, Csv
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'zetu',
     'crispy_forms',
     'bootstrap4',
+    'cloudinary'
     
 ]
 
@@ -129,6 +133,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+cloudinary.config( 
+  cloud_name=config('CLOUD_NAME'),
+  api_key=config('API_KEY'),
+  api_secret=config('API_SECRET')   
+)
+
+
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
@@ -136,10 +147,11 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-# EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
-# EMAIL_HOST=config('EMAIL_HOST')  
-# EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
-# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
-# EMAIL_PORT=config('EMAIL_PORT',cast=int)
+EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
+EMAIL_HOST=config('EMAIL_HOST')  
+EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
+EMAIL_PORT=config('EMAIL_PORT',cast=int)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = "/"
