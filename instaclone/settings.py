@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-!20-c=)bg5^m#)$y%-z*2_(r_th_wnttkc0ni-*ycjew0q9*_w'
+# SECRET_KEY = '1234mU5678'
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
+        'NAME': 'mugainstagram',
+        'USER': 'moringa',
+        'PASSWORD': 'access12345',
     }
 }
 
@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -136,10 +136,10 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
-EMAIL_HOST=config('EMAIL_HOST')  
-EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
-EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
-EMAIL_PORT=config('EMAIL_PORT',cast=int)
+# EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
+# EMAIL_HOST=config('EMAIL_HOST')  
+# EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
+# EMAIL_PORT=config('EMAIL_PORT',cast=int)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

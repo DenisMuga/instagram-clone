@@ -8,22 +8,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Insta-Clone</title>
+    <title>Insta Clone</title>
     
  {% block styles %}
   {% bootstrap_css %}
   {% endblock %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
-<body class="reg">
+<body class="">
   {%include 'navbar.html'%}
+  
+  <div class="bg-secondary text-light py-2 mx-2 ">
+    {%if request.user.is_authenticated%}
+    <div class="" style="text-align: right;">
+      <p class="my-auto display-5"><a class="m-3 fs-2 text-light" href="{% url 'signout'%}">Logout<i class="fa-solid fa-arrow-right-to-bracket ms-4"></i></a></p>
+    </div>
+    {%else%}
+    <div class="d-flex justify-content-end px-5 " > 
+      <p class="my-auto display-5"><a style="color: rgb(66, 26, 54);" class="m-3 fs-2 text-light" href="{% url 'signup'%}"> Register</a></p>
+      <p class="my-auto"><a class="text-light" style="color: rgb(66, 26, 54);" href="{% url 'login'%}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Login</a></p>
+    </div>
+    {%endif%}
+
+  </div>
+  <div class="con">
 {% block content %}
 
 {% endblock %}
+</div>
 
 
 {% block scripts %}
-       
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
      {% bootstrap_javascript %}
     {% endblock %}
 </body>

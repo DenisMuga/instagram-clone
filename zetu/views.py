@@ -28,6 +28,16 @@ def signup(request):
         form = RegForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+def signin(request):
+    pass
+
+
+
+@login_required(login_url='login')
+def signout(request):
+    logout(request)
+    return redirect('login')
+
 @login_required(login_url='login')
 def index(request):
     images = Post.objects.all()

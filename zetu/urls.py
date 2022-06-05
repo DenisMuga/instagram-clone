@@ -11,5 +11,9 @@ urlpatterns = [
      path('search/', views.search_profile, name='search'),
      path('unfollow/<to_unfollow>', views.unfollow, name='unfollow'),
      path('follow/<to_follow>', views.follow, name='follow'),
+     path('post/<id>', views.post_comment, name='comment'),
+     path('post/<id>/like', views.PostLikeToggle.as_view(), name='liked'),
+     path('api/post/<id>/like', views.PostLikeAPIToggle.as_view(), name='liked-api'),
+     path('signout/',views.signout,name='signout'),
 
 ]
