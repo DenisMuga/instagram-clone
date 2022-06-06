@@ -15,6 +15,7 @@ import os
 
 from decouple import config, Csv
 import dj_database_url
+import django_heroku
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -96,6 +97,16 @@ DATABASES = {
     }
 }
 
+# else:
+#        DATABASES = {
+#        'default': dj_database_url.config(
+#            default=config('DATABASE_URL')
+#        )
+#    }
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -141,6 +152,9 @@ cloudinary.config(
 
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
