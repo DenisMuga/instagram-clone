@@ -1,1 +1,1 @@
-web: gunicorn insta-clone.wsgi
+web: gunicorn instaclone.wsgi

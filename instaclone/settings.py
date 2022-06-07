@@ -22,8 +22,6 @@ import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = config('DEBUG', default=False, cast=bool)
-TEMPLATE_DEBUG = DEBUG
 
 
 # Quick-start development settings - unsuitable for production
@@ -64,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'instaclone.urls'
@@ -93,7 +90,7 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
 # development
 if config('MODE')=="dev":
 
@@ -117,7 +114,7 @@ else:
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['*']
 
 
 # Password validation
@@ -158,7 +155,7 @@ USE_TZ = True
 
 cloudinary.config( 
   cloud_name='dpsdmvmbq',
-  api_key='534834658774889',
+      api_key='534834658774889',
   api_secret='IsJVN4UcT8niQR6OSok2sY4zDjk'  
 )
 
