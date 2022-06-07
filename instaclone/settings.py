@@ -22,6 +22,8 @@ import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEBUG = config('DEBUG', default=False, cast=bool)
+TEMPLATE_DEBUG = DEBUG
 
 
 # Quick-start development settings - unsuitable for production
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'instaclone.urls'
@@ -88,24 +91,33 @@ WSGI_APPLICATION = 'instaclone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mugainstagram',
-        'USER': 'moringa',
-        'PASSWORD': 'access12345',
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'mugainstagram',
+            'USER': 'moringa',
+            'PASSWORD': 'access12345',
     }
 }
+#production
 
-# else:
-#        DATABASES = {
-#        'default': dj_database_url.config(
-#            default=config('DATABASE_URL')
-#        )
-#    }
+else:
+    DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
 
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Password validation
@@ -145,12 +157,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 cloudinary.config( 
-  cloud_name=config('CLOUD_NAME'),
-  api_key=config('API_KEY'),
-  api_secret=config('API_SECRET')   
+  cloud_name='dpsdmvmbq',
+  api_key='534834658774889',
+  api_secret='IsJVN4UcT8niQR6OSok2sY4zDjk'  
 )
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -161,11 +173,30 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
-EMAIL_HOST=config('EMAIL_HOST')  
-EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
-EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
-EMAIL_PORT=config('EMAIL_PORT',cast=int)
+# EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)  
+# EMAIL_HOST=config('EMAIL_HOST')  
+# EMAIL_HOST_USER=config('EMAIL_HOST_USER')  
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')  
+# EMAIL_PORT=config('EMAIL_PORT',cast=int)
+
+
+EMAIL_USE_TLS='mugah2011@gmail.com'
+EMAIL_HOST='mugah2011@gmail.com' 
+EMAIL_HOST_USER='denis'
+EMAIL_HOST_PASSWORD='Mumu2015!@'
+# EMAIL_PORT=config('EMAIL_PORT',cast=int)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/"
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# configuring the location for media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
